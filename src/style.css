@@ -1,0 +1,56 @@
+:root{
+  color-scheme: dark;
+  --fg:#e8e8ea;
+  --dim:#9a9aa6;
+  --line:#4a4a56;
+  --panel:#2e2e38;
+  --hero:#4ade80;
+  --foe:#f87171;
+  --now:#facc15;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; padding:12px; color:var(--fg);
+  font-family:Inter,system-ui,sans-serif; font-size:14px;
+}
+.row{display:flex; gap:6px; flex-wrap:wrap}
+button{
+  font:inherit; cursor:pointer; color:var(--fg);
+  background:#3c3c47; border:1px solid var(--line); border-radius:6px; padding:6px 12px;
+}
+button:hover{background:#4a4a57}
+button.ghost{background:transparent}
+select{
+  width:100%; font:inherit; color:var(--fg); background:#3c3c47;
+  border:1px solid var(--line); border-radius:6px; padding:6px 8px;
+}
+.head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px}
+.title{font-size:16px; font-weight:700}
+.list{display:flex; flex-direction:column; gap:4px}
+.entry{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  background:var(--panel); border:1px solid transparent;
+  border-radius:8px; padding:7px 10px;
+}
+.entry:hover{border-color:var(--line)}
+.entry.now{border-color:var(--now); background:#3a3524}
+.entry.pale{opacity:.5}
+.init{
+  min-width:30px; text-align:center; font-size:17px; font-weight:700;
+}
+.entry.now .init{color:var(--now)}
+.name{flex:1; display:flex; align-items:center; gap:7px}
+.side{
+  font-size:11px; padding:1px 7px; border-radius:10px; border:1px solid currentColor;
+}
+.side.hero{color:var(--hero)}
+.side.foe{color:var(--foe)}
+.detail{font-size:12px; color:var(--dim)}
+.empty{color:var(--dim); padding:14px 2px; text-align:center}
+.foot{margin-top:12px}
+.foot button{width:100%}
+.hint{font-size:12px; color:var(--dim); margin-top:6px}
+/* контекстне меню */
+.menu{padding:10px}
+.who{font-weight:700; margin-bottom:8px}
+.lbl{display:block; font-size:12px; color:var(--dim); margin-bottom:4px}

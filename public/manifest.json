@@ -1,0 +1,16 @@
+{
+  "name": "Бій",
+  "version": "0.1.0",
+  "manifest_version": 1,
+  "description": "Порядок ходу: ініціатива героїв і ворогів, підсвітка того, хто ходить.",
+  "author": "Nikita",
+  "icon": "https://treyser.github.io/biy/icon.svg",
+  "background_url": "https://treyser.github.io/biy/background.html",
+  "action": {
+    "title": "Бій",
+    "icon": "https://treyser.github.io/biy/icon.svg",
+    "popover": "https://treyser.github.io/biy/index.html",
+    "width": 420,
+    "height": 560
+  }
+}

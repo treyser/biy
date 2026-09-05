@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Бій</title></head>
+<body>
+  <div class="head">
+    <div class="title"><span id="round">Бою немає</span></div>
+    <div class="row" id="gm-top" hidden>
+      <button type="button" id="start">Почати бій</button>
+      <button type="button" id="next" hidden>Наступний</button>
+      <button type="button" id="end" class="ghost" hidden>Завершити</button>
+    </div>
+  </div>
+
+  <div id="list" class="list"><div class="empty">Додай учасників через ПКМ на токені</div></div>
+
+  <div class="foot">
+    <button type="button" id="roll" hidden>Кинути ініціативу</button>
+    <div class="hint" id="hint"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
