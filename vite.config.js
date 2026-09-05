@@ -10,6 +10,7 @@ export default defineConfig({
         background: resolve(__dirname, "background.html"),
         menu: resolve(__dirname, "menu.html"),
         index: resolve(__dirname, "index.html"),
+        bar: resolve(__dirname, "bar.html"),
       },
     },
   },
