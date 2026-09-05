@@ -58,8 +58,10 @@ select{
 /* --- смуга порядку ходу --- */
 .bar{padding:0; background:transparent}
 .strip{
-  display:flex; gap:6px; align-items:flex-end; justify-content:center;
-  padding:6px 8px 10px;
+  display:flex; gap:8px; align-items:center; justify-content:center;
+  /* зверху запас, щоб піднята комірка не зрізалась */
+  padding:20px 12px 16px;
+  height:100%;
 }
 .cell{
   position:relative; width:52px; height:52px; padding:0;
@@ -77,11 +79,11 @@ select{
 .cell.hero{border-color:var(--hero)}
 .cell.foe{border-color:var(--foe)}
 .cell.now{
-  border-color:var(--now); transform:translateY(-6px) scale(1.12);
+  border-color:var(--now); transform:translateY(-7px) scale(1.1);
   box-shadow:0 0 0 3px rgba(250,204,21,.28);
 }
 .cell:hover{transform:translateY(-3px)}
-.cell.now:hover{transform:translateY(-6px) scale(1.12)}
+.cell.now:hover{transform:translateY(-7px) scale(1.1)}
 .cell .num{
   position:absolute; bottom:-4px; right:-4px;
   min-width:20px; padding:0 4px; border-radius:10px;

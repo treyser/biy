@@ -6,8 +6,8 @@ const BASE = import.meta.env.BASE_URL;
 const url = (p) => new URL(BASE + p, window.location.origin).href;
 
 const BAR = `${ID}/bar`;
-const CELL = 58;   // ширина комірки з проміжком
-const HEIGHT = 78; // висота смуги з місцем на підняту комірку
+const CELL = 60;   // ширина комірки з проміжком
+const HEIGHT = 104; // з запасом на підняту комірку й тінь
 
 let shown = 0;     // скільки комірок зараз показано; 0 — смуги немає
 
@@ -55,7 +55,7 @@ async function sync(state) {
 
 async function place(count) {
   const viewWidth = await OBR.viewport.getWidth();
-  const width = Math.min(count * CELL + 16, viewWidth);
+  const width = Math.min(count * CELL + 28, viewWidth);
 
   await OBR.popover.open({
     id: BAR,
