@@ -89,7 +89,8 @@ async function atmosphereEnd(rounds, fallen) {
       await OBR.room.setMetadata({ [ATM.MUSIC]: { ...rest, override: before ?? null } });
     }
     const r = rounds === 1 ? "1 раунд" : rounds < 5 ? `${rounds} раунди` : `${rounds} раундів`;
-    const t = `Бій завершено за ${r}.` + (fallen.length ? ` Переможено: ${fallen.join(", ")}.` : "");
+    const n = fallen.length;
+    const t = `Бій завершено за ${r}.` + (n ? ` Переможено ворогів: ${n}.` : "");
     await OBR.broadcast.sendMessage(ATM.LOG_ADD, { k: "g", t, w: "Майстер" }, { destination: "ALL" });
   } catch (err) { console.error("Бій → Атмосфера:", err); }
 }

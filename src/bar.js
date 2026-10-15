@@ -48,7 +48,7 @@ async function draw(state) {
   }
   lastNow = now.id;
 
-  $("who").textContent = `${now.name} · раунд ${s.round}`;
+  $("who").textContent = `Раунд ${s.round}`;
 
   // банер для цього гравця: його хід або треба кинути ініціативу
   const myTurn = mine(now);
@@ -56,7 +56,7 @@ async function draw(state) {
   const banner = $("banner");
   banner.hidden = !(myTurn || myPending);
   banner.dataset.kind = myTurn ? "turn" : "roll";
-  banner.textContent = myTurn ? `Ваш хід, ${now.name}!` : "🎲 Кинь ініціативу";
+  banner.textContent = myTurn ? "Ваш хід!" : "🎲 Кинь ініціативу";
   banner.classList.toggle("turn", myTurn);
 }
 
@@ -64,7 +64,7 @@ function cell(e, isNow, past) {
   const c = document.createElement("button");
   c.type = "button";
   c.className = `cell ${e.side}` + (isNow ? " now" : "") + (past ? " past" : "") + (e.down ? " down" : "");
-  c.title = `${e.name} — ${healthLabel(e)} · ініціатива ${e.init}`;
+  c.title = `${healthLabel(e)} · ініціатива ${e.init}`;   // імена токенів не показуємо
 
   const frame = document.createElement("div");
   frame.className = "frame";
