@@ -1,6 +1,6 @@
 {
   "name": "Бій",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "manifest_version": 1,
   "description": "Порядок ходу в дусі BG3: ініціатива, стан учасників без цифр, стани з таймером, кидок d20",
   "author": "Nikita",
