@@ -159,6 +159,14 @@ function render() {
       i.textContent = cond(c.k).icon + (c.r ? c.r : "");
       conds.append(i);
     }
+    if (e.down && e.ds) {
+      // рятівні кидки просто в рядку: ● успіхи, ✕ провали
+      const d = e.ds;
+      const pips = document.createElement("span");
+      pips.className = "dspips";
+      pips.textContent = d.stable ? "стабілізований" : "●".repeat(d.ok) + "○".repeat(3 - d.ok) + " " + "✕".repeat(d.fail) + "·".repeat(3 - d.fail);
+      conds.append(pips);
+    }
     mid.append(name, hp, conds);
 
     const detail = document.createElement("span");
@@ -183,12 +191,13 @@ function editor(e) {
   const hp = document.createElement("div");
   hp.className = "chips";
   HEALTH.forEach((h, i) => {
-    const b = chip(h.name, !e.dead && !e.down && (e.health ?? 0) === i, () => patchEntry(e.id, (x) => ({ ...x, health: i, down: false, dead: false })));
+    const b = chip(h.name, !e.dead && !e.down && (e.health ?? 0) === i, () => patchEntry(e.id, (x) => ({ ...x, health: i, down: false, dead: false, ds: null })));
     b.classList.add(`h${i}`);
     hp.append(b);
   });
-  if (e.side === "hero") hp.append(chip(DOWN.down, e.down, () => patchEntry(e.id, (x) => ({ ...x, down: !x.down, dead: false }))));
-  hp.append(chip(DOWN.dead, e.dead, () => patchEntry(e.id, (x) => ({ ...x, dead: !x.dead, down: false }))));
+  // непритомний герой одразу починає рятівні кидки від смерті
+  if (e.side === "hero") hp.append(chip(DOWN.down, e.down, () => patchEntry(e.id, (x) => ({ ...x, down: !x.down, dead: false, ds: x.down ? null : { ok: 0, fail: 0, stable: false } }))));
+  hp.append(chip(DOWN.dead, e.dead, () => patchEntry(e.id, (x) => ({ ...x, dead: !x.dead, down: false, ds: null }))));
 
   const lbl = (t) => Object.assign(document.createElement("div"), { className: "lbl", textContent: t });
 

@@ -5,7 +5,8 @@ export const ID = "com.nikita.battle";
 export const STATE = `${ID}/state`;   // стан бою — у метаданих кімнати
 export const LINK = `${ID}/link`;     // привʼязка токена до листа — у метаданих токена
 export const ROLL = `${ID}/roll`;     // вікно кидка ініціативи
-export const OPTS = `${ID}/opts`;     // налаштування бою (зв'язок з Атмосферою) — у метаданих кімнати
+export const OPTS = `${ID}/opts`;
+export const DS = `${ID}/death`;      // вікно рятівних кидків від смерті     // налаштування бою (зв'язок з Атмосферою) — у метаданих кімнати
 
 // ключ, під яким лист персонажа зберігає листи (те саме розширення, той самий домен)
 export const SHEETS = "com.nikita.character-sheet/sheets";
@@ -130,4 +131,33 @@ export function healthLabel(e) {
   if (e.dead) return DOWN.dead;
   if (e.down) return DOWN.down;
   return HEALTH[e.health ?? 0].name;
+}
+
+// --- Рятівні кидки від смерті (гравець кидає справжній кубик і позначає результат) ---
+// entry.ds = { ok, fail, stable, end, at } — end: "stable" | "dead" | "up" — чим скінчилось, at — коли
+export const SHOW_END = 5500;   // скільки вікно показує, чим усе скінчилось
+
+export const dsOf = (e) => ({ ok: 0, fail: 0, stable: false, ...(e.ds ?? {}) });
+
+// Кого показувати у вікні: непритомні, що борються за життя, і щойно розв'язані долі
+export function dying(order, now = Date.now()) {
+  return (order ?? []).filter((e) => e.side === "hero" && e.ds &&
+    ((e.down && !e.ds.stable && !e.ds.end) || (e.ds.end && now - (e.ds.at ?? 0) < SHOW_END)));
+}
+
+export function markSave(e, kind) {
+  const d = dsOf(e);
+  const at = Date.now();
+  if (kind === "ok") {
+    const ok = Math.min(3, d.ok + 1);
+    return ok >= 3 ? { ...e, ds: { ok: 3, fail: d.fail, stable: true, end: "stable", at } } : { ...e, ds: { ...d, ok } };
+  }
+  if (kind === "fail" || kind === "fail2") {
+    const fail = Math.min(3, (d.stable ? 0 : d.fail) + (kind === "fail2" ? 2 : 1));
+    if (fail >= 3) return { ...e, down: false, dead: true, ds: { ok: d.stable ? 0 : d.ok, fail: 3, stable: false, end: "dead", at } };
+    return { ...e, ds: { ok: d.stable ? 0 : d.ok, fail, stable: false } };
+  }
+  if (kind === "twenty") return { ...e, down: false, dead: false, health: 4, ds: { ...d, end: "up", at } };
+  if (kind === "stable") return { ...e, ds: { ok: 0, fail: 0, stable: true, end: "stable", at } };
+  return e;
 }
