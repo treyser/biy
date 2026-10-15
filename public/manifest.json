@@ -1,8 +1,8 @@
 {
   "name": "Бій",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "manifest_version": 1,
-  "description": "Порядок ходу: ініціатива героїв і ворогів, підсвітка того, хто ходить.",
+  "description": "Порядок ходу в дусі BG3: ініціатива, стан учасників без цифр, стани з таймером, кидок d20",
   "author": "Nikita",
   "icon": "https://treyser.github.io/biy/icon.svg",
   "background_url": "https://treyser.github.io/biy/background.html",
