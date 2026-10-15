@@ -12,6 +12,7 @@ export default defineConfig({
         index: resolve(__dirname, "index.html"),
         bar: resolve(__dirname, "bar.html"),
         roll: resolve(__dirname, "roll.html"),
+        death: resolve(__dirname, "death.html"),
       },
     },
   },
