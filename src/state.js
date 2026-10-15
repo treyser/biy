@@ -52,6 +52,12 @@ export const CONDS = [
   { k: "exhaustion", name: "Виснаження", icon: "🥱" },
   { k: "concentration", name: "Концентрація", icon: "🔮" },
   { k: "blessed", name: "Благословенний", icon: "✨" },
+  // стани від зон «Атмосфери» (і для ручного вибору)
+  { k: "burning", name: "Горить", icon: "🔥" },
+  { k: "chilled", name: "Замерзає", icon: "❄️" },
+  { k: "wet", name: "Мокрий", icon: "💧" },
+  { k: "obscured", name: "У тумані", icon: "🌫" },
+  { k: "slowed", name: "Сповільнений", icon: "🐌" },
 ];
 export const cond = (k) => CONDS.find((c) => c.k === k) ?? { k, name: k, icon: "•" };
 
