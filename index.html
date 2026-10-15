@@ -3,18 +3,23 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Бій</title></head>
 <body>
   <div class="head">
-    <div class="title"><span id="round">Бою немає</span></div>
+    <div class="title"><span id="round">Бою немає</span><small id="sub"></small></div>
     <div class="row" id="gm-top" hidden>
-      <button type="button" id="start">Почати бій</button>
-      <button type="button" id="next" hidden>Наступний</button>
+      <button type="button" id="start" class="gold">Почати бій</button>
+      <button type="button" id="next" class="gold" hidden>Наступний ▶</button>
       <button type="button" id="end" class="ghost" hidden>Завершити</button>
     </div>
+  </div>
+
+  <div class="opts" id="gm-opts" hidden>
+    <label><input type="checkbox" id="opt-atm"> Музика й титр «Атмосфери»</label>
+    <label><input type="checkbox" id="opt-boss"> Бій з босом</label>
   </div>
 
   <div id="list" class="list"><div class="empty">Додай учасників через ПКМ на токені</div></div>
 
   <div class="foot">
-    <button type="button" id="roll" hidden>Кинути ініціативу</button>
+    <button type="button" id="roll" class="gold" hidden>🎲 Кинути ініціативу</button>
     <div class="hint" id="hint"></div>
   </div>
 
