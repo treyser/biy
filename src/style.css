@@ -72,6 +72,7 @@ select{width:100%}
 .who{font-weight:700; margin-bottom:8px}
 
 /* --- смуга порядку ходу --- */
+html:has(body.bar),html:has(body.bar) body{color-scheme:normal; background:transparent}
 body.bar{padding:0; background:transparent; overflow:hidden; display:flex; flex-direction:column; align-items:center}
 .plate{margin-top:6px; padding:10px 16px 8px; border-radius:14px;
   background:linear-gradient(180deg, rgba(24,22,28,.92), rgba(14,13,17,.86));
