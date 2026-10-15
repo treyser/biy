@@ -1,6 +1,6 @@
 {
   "name": "Бій",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "manifest_version": 1,
   "description": "Порядок ходу в дусі BG3: ініціатива, стан учасників без цифр, стани з таймером, кидок d20",
   "author": "Nikita",
@@ -12,5 +12,11 @@
     "popover": "https://treyser.github.io/biy/index.html",
     "width": 420,
     "height": 560
-  }
+  },
+  "permissions": [
+    {
+      "name": "autoplay",
+      "reason": "Серцебиття героя, що лежить при смерті, має звучати без додаткового кліку"
+    }
+  ]
 }
