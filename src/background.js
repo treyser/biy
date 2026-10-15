@@ -1,15 +1,18 @@
-// Реєструє контекстне меню і тримає смугу порядку ходу.
+// Реєструє контекстне меню, тримає смугу порядку ходу й пропонує гравцеві кинути ініціативу.
 import OBR from "@owlbear-rodeo/sdk";
-import { ID, STATE } from "./state.js";
+import { ID, STATE, ROLL, inQueue, mine } from "./state.js";
 
 const BASE = import.meta.env.BASE_URL;
 const url = (p) => new URL(BASE + p, window.location.origin).href;
 
 const BAR = `${ID}/bar`;
-const CELL = 60;   // ширина комірки з проміжком
-const HEIGHT = 104; // з запасом на підняту комірку й тінь
+const CELL = 66;     // звичайна комірка з проміжком
+const BIG = 22;      // на скільки ширша комірка того, хто ходить
+const GAP = 46;      // розділювач раундів
+const HEIGHT = 196;  // смуга + ім'я + банер «Ваш хід»
 
-let shown = 0;     // скільки комірок зараз показано; 0 — смуги немає
+let shown = 0;       // скільки комірок зараз показано; 0 — смуги немає
+let asked = null;    // для якого бою вже відкривали вікно кидка
 
 OBR.onReady(() => {
   OBR.contextMenu.create({
@@ -35,7 +38,13 @@ OBR.onReady(() => {
 
 async function sync(state) {
   const s = { active: false, order: [], ...(state ?? {}) };
-  const count = s.active ? s.order.filter((e) => e.init !== null).length : 0;
+  const count = s.active ? inQueue(s.order).length : 0;
+
+  // Бій почався, а мій герой ще не кидав — відкриваємо вікно кидка
+  if (s.active && s.started && asked !== s.started && s.order.some((e) => mine(e) && e.init === null)) {
+    asked = s.started;
+    OBR.modal.open({ id: ROLL, url: url("roll.html"), width: 460, height: 520 }).catch(() => {});
+  }
 
   if (!count) {
     if (shown) {
@@ -55,7 +64,7 @@ async function sync(state) {
 
 async function place(count) {
   const viewWidth = await OBR.viewport.getWidth();
-  const width = Math.min(count * CELL + 28, viewWidth);
+  const width = Math.min(count * CELL + BIG + (count > 1 ? GAP : 0) + 40, viewWidth);
 
   await OBR.popover.open({
     id: BAR,
@@ -63,7 +72,7 @@ async function place(count) {
     width,
     height: HEIGHT,
     anchorReference: "POSITION",
-    anchorPosition: { top: 56, left: viewWidth / 2 },
+    anchorPosition: { top: 52, left: viewWidth / 2 },
     anchorOrigin: { horizontal: "CENTER", vertical: "TOP" },
     transformOrigin: { horizontal: "CENTER", vertical: "TOP" },
     hidePaper: true,          // без рамки — сама смуга малює тло

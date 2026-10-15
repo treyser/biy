@@ -1,6 +1,6 @@
 import "./style.css";
 import OBR from "@owlbear-rodeo/sdk";
-import { LINK, STATE, getState, setState, getSheets, dexOf } from "./state.js";
+import { LINK, getState, setState, getSheets, dexOf, d20 } from "./state.js";
 
 const $ = (id) => document.getElementById(id);
 let targets = [];
@@ -57,9 +57,15 @@ async function add() {
       name: sheet?.name?.trim() || item.text?.plainText || item.name || "Учасник",
       side: sheetId ? "hero" : "foe",
       dex: sheet ? dexOf(sheet) : 0,
+      bonus: 0,
       init: null,
       roll: null,
+      health: 0,
+      conds: [],
     });
+    // Бій уже йде: ворогові кидаємо одразу, герой кине сам
+    const last = order[order.length - 1];
+    if (state.active && last.side === "foe") { last.roll = d20(); last.init = last.roll + last.dex; }
   }
 
   await setState({ ...state, order });
